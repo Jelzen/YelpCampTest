@@ -1,3 +1,11 @@
+if(process.envNODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
+console.log(process.env.SECRET)
+console.log(process.env.API_KEY)
+
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -48,7 +56,7 @@ app.use(session(sessionConfig))
 app.use(flash());
 
 app.use(passport.initialize());
-app.use(passport.session)
+app.use(passport.session())
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
@@ -70,7 +78,7 @@ app.use('/campgrounds/:id/review', reviewRoutes)
 app.get('/', (req, res) => {
     console.log('locals: ', res.locals)
     console.log('req: ', req)
-    res.render('HELLO FROM YELPCAMP!')
+    res.render('home')
 });
 
 
